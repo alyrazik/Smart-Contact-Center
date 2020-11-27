@@ -19,7 +19,6 @@ from time import time
 from datetime import datetime
 
 
-
 # setup logging
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger('Regression logger')
