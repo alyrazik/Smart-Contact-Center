@@ -13,6 +13,8 @@ import pymongo
 from pymongo import MongoClient
 from SCC.scrapers.facebook import get_fb_posts
 from SCC.utils.DataBase import retrieve_documents
+from SCC.models.tokenize import tokenize_post
+
 
 # Import helper functions
 from sklearn.preprocessing import StandardScaler
@@ -52,6 +54,8 @@ def main():
         print(df['text'].head(25))
         print(df.shape)
         print(df.columns)
+        print('tokenization:::::')
+        print(tokenize_post(df.iloc[1, 2]))
 
     except Exception:
         logger.exception('Exception occurred in running test function')
