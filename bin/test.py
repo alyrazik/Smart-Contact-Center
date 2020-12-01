@@ -13,7 +13,9 @@ import pymongo
 from pymongo import MongoClient
 from SCC.scrapers.facebook import get_fb_posts
 from SCC.utils.DataBase import retrieve_documents
-from SCC.models.tokenize import tokenize_post
+#from SCC.models.tokenize import tokenize_post
+from camel_tools.sentiment import SentimentAnalyzer
+
 
 
 # Import helper functions
@@ -55,7 +57,14 @@ def main():
         print(df.shape)
         print(df.columns)
         print('tokenization:::::')
-        print(tokenize_post(df.iloc[1, 2]))
+        #print(tokenize_post(df.iloc[1, 2]))
+
+        sa = SentimentAnalyzer.pretrained()
+        sentiments = sa.predict(df['text'].head(0))
+        sentiment = sa.predict_sentence('ايجابي   ')
+        print(sentiments)
+        print('aly')
+        print(sentiment)
 
     except Exception:
         logger.exception('Exception occurred in running test function')
