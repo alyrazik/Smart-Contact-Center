@@ -32,3 +32,9 @@ def nouns_adj(text):
     tags = tagger.tag(tokenized)
     nouns_adj = [word for (word, pos) in zip(tokenized, tags) if is_noun_adj(pos)]
     return ' '.join(nouns_adj)
+
+def extract_business_orgs(tokenized, labels):
+    """ extracts the named-entities from a list of tokenized words and a corresponding list of their labels"""
+    is_business_organization = lambda x: x == 'B-ORG'
+    B_orgs = [word for (word, label) in zip(tokenized, labels) if is_business_organization(label)]
+    return B_orgs
