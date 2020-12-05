@@ -71,6 +71,9 @@ def main():
         # The LDA for topic modeling
         lda = models.LdaModel(corpus=corpus, id2word=id2word, num_topics=2, passes=1)
         df['topic'] = lda[corpus]
+        df['topic_likelihood'] = df['topic'].apply(lambda x: max([b for (a, b) in x]))
+        df['topic'] = df['topic'].apply(lambda x: max((probability, topic) for topic, probability in x)[1])
+
         lda.print_topics()
         print(df['topic'])
 
