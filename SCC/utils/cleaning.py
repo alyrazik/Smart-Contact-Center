@@ -38,3 +38,5 @@ def extract_business_orgs(tokenized, labels):
     is_business_organization = lambda x: x == 'B-ORG'
     B_orgs = [word for (word, label) in zip(tokenized, labels) if is_business_organization(label)]
     return B_orgs
+
+clean = lambda x: nouns_adj(clean_text_2(clean_text_1(x)))
