@@ -11,7 +11,7 @@ def model_from_text(col):
     corpus is the term-document matrix in the gensim format
     id2word is dictionary of the all terms and their respective location in the term-document matrix
     """
-    cv = CountVectorizer(max_df=0.5)  # for topic modeling.
+    cv = CountVectorizer(max_df=0.1)  # for topic modeling.
     # Create document term matrix
     data_cv = cv.fit_transform(col)
     data_dtm = pd.DataFrame(data_cv.toarray(), columns=cv.get_feature_names())
