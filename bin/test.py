@@ -33,7 +33,6 @@ N_PASSES = 1  # Passes for LDA topic model
 model_suffix = '{:%Y-%m-d}'.format(datetime.now())
 filename = "LDA_{}_{}_{}".format(N_PAGES, N_TOPICS, N_PASSES)
 WEB_DRIVER_PATH = "C:\\Users\\Aly\\chromedriver.exe"
-username = "alygrps@yahoo.com"
 
 
 def main():
