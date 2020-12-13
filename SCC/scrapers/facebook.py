@@ -74,15 +74,10 @@ def get_fb_profile(path_to_web_driver, user_name, pw, profile_page):
             continue
         break
 
-    # Get Gender tab xpath and return value
-    while True:
-        try:
-            Gender = driver.find_element_by_xpath(
-                '//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div[2]/div/div/div[3]/div[5]/div/div/div[1]/div/div[2]/div/div[1]/div/div/div[1]/span'
-            )
-        except Exception:
-            continue
-        break
+        # Get Gender tab xpath and return value
+    Gender = driver.find_element_by_xpath(
+            '//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div[2]/div/div/div[3]/div[2]/div/div/div[2]/div/div/div/div/div[1]/span'
+    )
 
     user_info = [Gender.text]
     return user_info
