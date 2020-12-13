@@ -8,6 +8,7 @@ from SCC.utils.DataBase import retrieve_documents
 # setup logging
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger('Network logger')
+SEARCH_LIMIT = 100   # limit the number of returned articles matching a keyword search
 
 
 def scrape_save_to_cloud(mongo_client, database, table, group_ID, n_pages):
@@ -65,4 +66,34 @@ def obtain_from_cloud(mongo_client, database, table):
         return df
 
     except Exception:
-        logger.exception('Exception occurred in running test function')
+        logger.exception('Exception occurred in obtaining documents from MongoDB')
+
+
+def obtain_kw_from_cloud(search_text, mongo_client, database, table):
+    """
+      Take a a string containing keywords and outputs all relevant posts to any of them
+      Args:
+        -search_text: a string of keywords (<string>)
+        -mongo_client: the client name of a cloud MongoDB
+        -database: MongoDB database name (<pymongo.database.Database>)
+        -collection: string with the name of MongoDB collection (<string>)
+      Returns:
+        -A pandas dataframe containing the MongoDB contents of the returned news articles
+    """
+    try:
+
+        # connect to MongoDB client
+        client = MongoClient(mongo_client)
+        db = client[database]
+        db[table].create_index([
+            ("text", "text")
+        ],
+            name="search_index"
+        )
+
+        returned_cursor = db[table].find({"$text": {"$search": search_text}}).limit(SEARCH_LIMIT)
+        df = pd.DataFrame(returned_cursor)
+        return df
+
+    except Exception:
+        logger.exception('Exception occurred in obtaining searched keywords from MongoDB')

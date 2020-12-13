@@ -18,7 +18,7 @@ from camel_tools.ner import NERecognizer
 from pymongo import MongoClient
 
 from SCC.scrapers.facebook import get_fb_posts
-from SCC.scrapers.scrape_save import scrape_save_to_cloud, obtain_from_cloud
+from SCC.scrapers.scrape_save import scrape_save_to_cloud, obtain_from_cloud, obtain_kw_from_cloud
 
 from SCC.scrapers.facebook import get_fb_profile
 from SCC.utils.DataBase import retrieve_documents
@@ -42,10 +42,10 @@ MONGO_CLIENT = "mongodb+srv://aly:a@cluster0.4pfcp.mongodb.net/db?retryWrites=tr
 
 def main():
     try:
+        # df = obtain_from_cloud(MONGO_CLIENT, 'posts_database', 'shophere')
+        df = obtain_kw_from_cloud("vodafone we etisalat orange ", MONGO_CLIENT, 'posts_database', 'shophere')
 
-        df = obtain_from_cloud(MONGO_CLIENT, 'posts_database', 'shophere')
-
-        df = df.iloc[0:10, :]
+        df = df.iloc[0:100, :]
         # clean the free text field
         df['clean_text'] = df.text.apply(clean)
         df['tokenized'] = df['clean_text'] \
