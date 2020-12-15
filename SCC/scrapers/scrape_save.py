@@ -8,7 +8,7 @@ from SCC.utils.DataBase import retrieve_documents
 # setup logging
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger('Network logger')
-SEARCH_LIMIT = 100   # limit the number of returned articles matching a keyword search
+SEARCH_LIMIT = 3000   # limit the number of returned articles matching a keyword search
 
 
 def scrape_save_to_cloud(mongo_client, database, table, group_ID, n_pages):
